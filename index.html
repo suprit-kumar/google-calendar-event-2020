@@ -4,8 +4,82 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Google Calendar Event</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
+    <div class="container-fluid">
+            <div class="row mt-5">
+              <div class="col-md-5">
+                <div class="card">
+                  <div class="card-body">
+                    <h5 class="card-text-header">Create Meeting In Google Calendar</h5>
+                    <!-- First row -->
+                    <div class="row">
+                      <div class="col-sm-6">
+                        <div class="form-group">
+                          <label for="title">Title</label>
+                          <input type="text" class="form-control" id="title" placeholder="Title">
+                        </div>
+                      </div>
+                      <div class="col-sm-6">
+                        <div class="form-group">
+                          <label for="date">Date</label>
+                          <input type="date" class="form-control" id="date">
+                        </div>
+                      </div>
+                    </div>
+                     <!-- Second row -->
+                     <div class="row">
+                      <div class="col-sm-6">
+                        <div class="form-group">
+                          <label for="start_time">Start Time</label>
+                          <input type="time" class="form-control" id="start_time" placeholder="Title">
+                        </div>
+                      </div>
+                      <div class="col-sm-6">
+                        <div class="form-group">
+                          <label for="end_time">End Time</label>
+                          <input type="time" class="form-control" id="end_time">
+                        </div>
+                      </div>
+                    </div>
+                      <!-- Third row -->
+                      <div class="row">
+                        <div class="col-sm-6">
+                          <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" id="email" placeholder="Email Id">
+                          </div>
+                        </div>
+                        <div class="col-sm-6">
+                          <div class="form-group">
+                            <label for="location">Location</label>
+                            <input type="text" class="form-control" id="location">
+                          </div>
+                        </div>
+                      </div>
+                      <div>
+                        <button type="button" class="btn btn-outline-info meeting-create-btn">Create Meeting</button>
+                      </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-7">
+                <div class="card">
+                  <div class="card-body">
+                    This is some text within a card body.
+                  </div>
+                </div>
+              </div>
+            </div>
+      </div>
+      <!-- CDN Links -->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+      <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  
+      <script src="script.js"></script>
 </body>
 </html>
