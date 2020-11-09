@@ -14,3 +14,7 @@ body{
     float: right;
     margin-top: 5px;
 }
+
+.card{
+    box-shadow: 2px 4px 10px;
+}
