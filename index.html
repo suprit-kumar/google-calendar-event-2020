@@ -163,8 +163,8 @@
         <p>Google Calendar API Quickstart</p>
 
         <!--Add buttons to initiate auth sequence and sign out-->
-        <button id="authorize_button" >Authorize</button>
-        <button id="signout_button" >Sign Out</button>
+        <button id="authorize_button" style="display: none">Authorize</button>
+        <button id="signout_button"  style="display: none">Sign Out</button>
     
     </div>
 </div>
@@ -215,12 +215,12 @@
 
     function updateSigninStatus(isSignedIn) {
       if (isSignedIn) {
-        // authorizeButton.style.display = 'none';
-        // signoutButton.style.display = 'block';
+        authorizeButton.style.display = 'none';
+        signoutButton.style.display = 'block';
         listUpcomingEvents();
       } else {
-        // authorizeButton.style.display = 'block';
-        // signoutButton.style.display = 'none';
+        authorizeButton.style.display = 'block';
+        signoutButton.style.display = 'none';
       }
     }
     function handleAuthClick(event) {
