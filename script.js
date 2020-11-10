@@ -1,5 +1,5 @@
 $(document).ready(function(){
-
+    handleClientLoad();
     // Call createMeeting function on create meeting button click
     $('#create_meeting_btn').click(function(){
         createMeeting();
@@ -56,4 +56,68 @@ function createMeeting(){
 
     }
 
+}
+
+
+
+
+
+
+
+/**
+ *  On load, called to load the auth2 library and API client library.
+ */
+function handleClientLoad() {
+    gapi.load('client:auth2', initClient);
+}
+
+function initClient() {
+    // Client ID and API key from the Developer Console
+    var CLIENT_ID = '316734696300-1ul0nue9kut89o8n631mf3f1c77vkuj0.apps.googleusercontent.com';
+    var API_KEY = 'AIzaSyB0YUt9cp75sFoxwXUXd2YqiowGVYLFrqo';
+
+    // Array of API discovery doc URLs for APIs used by the quickstart
+    var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
+    var SCOPES = "https://www.googleapis.com/auth/calendar";
+
+    gapi.client.init({
+        apiKey: API_KEY,
+        clientId: CLIENT_ID,
+        discoveryDocs: DISCOVERY_DOCS,
+        scope: SCOPES
+    }).then(function () {
+
+        var authorizeButton = document.getElementById('authorize_button');
+        var signoutButton = document.getElementById('signout_button');
+        // Listen for sign-in state changes.
+        gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
+
+        // Handle the initial sign-in state.
+        updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+
+        authorizeButton.onclick = handleAuthClick;
+        signoutButton.onclick = handleSignoutClick;
+    });
+}
+
+function updateSigninStatus(isSignedIn) {
+    var authorizeButton = document.getElementById('authorize_button');
+    var signoutButton = document.getElementById('signout_button');
+
+    if (isSignedIn) {
+        authorizeButton.style.display = 'none';
+        signoutButton.style.display = 'block';
+        info_place.innerHTML = ''
+
+    } else {
+        handleAuthClick();
+        authorizeButton.style.display = 'block';
+        signoutButton.style.display = 'none';
+    }
+}
+function handleAuthClick(event) {
+    gapi.auth2.getAuthInstance().signIn();
+}
+function handleSignoutClick(event) {
+    gapi.auth2.getAuthInstance().signOut();
 }
