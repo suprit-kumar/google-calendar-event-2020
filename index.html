@@ -173,7 +173,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script src="https://apis.google.com/js/api.js"></script>
+
 
 <script type="text/javascript">
     // Client ID and API key from the Developer Console
@@ -231,7 +231,10 @@
     }
  
   </script>
-
+<script async defer src="https://apis.google.com/js/api.js"
+onload="this.onload=function(){};handleClientLoad()"
+onreadystatechange="if (this.readyState === 'complete') this.onload()">
+</script>
 <script src="script.js"></script>
 </body>
 </html>
