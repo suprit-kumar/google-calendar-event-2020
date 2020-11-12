@@ -54,8 +54,7 @@ function createMeeting() {
         return false;
     }
     else {
-        var someRandomString = Math.random().toString(36).substring(2, 10);
-        var eventCalendar = {
+        const eventCalendar = {
             'summary': title,
             'location': location,
             'description': 'My online meeting',
@@ -66,12 +65,6 @@ function createMeeting() {
             'end': {
                 'dateTime': date + 'T' + endTime + ':00+05:30',
                 'timeZone': 'Asia/Calcutta'
-            },
-            "conferenceData": {
-                "createRequest": {
-                    "requestId": someRandomString,
-                    "conferenceSolutionKey": {"type": "hangoutsMeet"}
-                }
             },
             'attendees': [
                 {'email': email}
@@ -85,13 +78,13 @@ function createMeeting() {
             }
         };
 
-        var request = gapi.client.calendar.events.insert({
+        const request = gapi.client.calendar.events.insert({
             'calendarId': 'primary',
             'resource': eventCalendar
         });
 
         request.execute(function (event) {
-            console.log('event-->', event);
+            listUpcomingEvents();
         });
     }
 
@@ -107,12 +100,12 @@ function handleClientLoad() {
 
 function initClient() {
     // Client ID and API key from the Developer Console
-    var CLIENT_ID = '316734696300-1ul0nue9kut89o8n631mf3f1c77vkuj0.apps.googleusercontent.com';
-    var API_KEY = 'AIzaSyANJosyAR55JTX73jlUV28u55R3kWgUQ80';
+    const CLIENT_ID = '316734696300-1ul0nue9kut89o8n631mf3f1c77vkuj0.apps.googleusercontent.com';
+    const API_KEY = 'AIzaSyANJosyAR55JTX73jlUV28u55R3kWgUQ80';
 
     // Array of API discovery doc URLs for APIs used by the quickstart
-    var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
-    var SCOPES = "https://www.googleapis.com/auth/calendar";
+    const DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
+    const SCOPES = "https://www.googleapis.com/auth/calendar";
 
     gapi.client.init({
         apiKey: API_KEY,
@@ -141,6 +134,7 @@ function updateSigninStatus(isSignedIn) {
     if (isSignedIn) {
         authorizeButton.style.display = 'none';
         signoutButton.style.display = 'block';
+        listUpcomingEvents();
     } else {
         // handleAuthClick();
         authorizeButton.style.display = 'block';
@@ -152,4 +146,31 @@ function handleAuthClick(event) {
 }
 function handleSignoutClick(event) {
     gapi.auth2.getAuthInstance().signOut();
+}
+
+// Display upcoming events on table
+
+function listUpcomingEvents() {
+    const details,count=1;
+    const request = gapi.client.calendar.events.list({
+        'calendarId': 'primary',
+        'timeMin': (new Date()).toISOString(),
+        'singleEvents': true,
+        'maxResults': 4,
+        'orderBy': 'startTime'
+    });
+    request.execute(function (event) {
+        $('#calendarInfotable>tbody').empty();
+        event.items.forEach(function (list) {
+            details = "<tr>" +
+                "<td>" + count + "</td>" +
+                "<td>" + list.summary + "</td>" +
+                "<td>" + list.start.dateTime.split('T')[0] + "</td>" +
+                "<td>" + list.start.dateTime.split('T')[1].slice(0, 5) + '-' + list.end.dateTime.split('T')[1].slice(0, 5) + "</td>" +
+                "<td>" + list.status + "</td>" +
+                "</tr>";
+            $('#calendarInfotable>tbody').append(details);
+            count++;
+        })
+    });
 }
