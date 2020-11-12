@@ -54,7 +54,7 @@ function createMeeting() {
         return false;
     }
     else {
-        const eventCalendar = {
+        var eventCalendar = {
             'summary': title,
             'location': location,
             'description': 'My online meeting',
@@ -78,7 +78,7 @@ function createMeeting() {
             }
         };
 
-        const request = gapi.client.calendar.events.insert({
+        var request = gapi.client.calendar.events.insert({
             'calendarId': 'primary',
             'resource': eventCalendar
         });
@@ -100,12 +100,12 @@ function handleClientLoad() {
 
 function initClient() {
     // Client ID and API key from the Developer Console
-    const CLIENT_ID = '316734696300-1ul0nue9kut89o8n631mf3f1c77vkuj0.apps.googleusercontent.com';
-    const API_KEY = 'AIzaSyANJosyAR55JTX73jlUV28u55R3kWgUQ80';
+    var CLIENT_ID = '316734696300-1ul0nue9kut89o8n631mf3f1c77vkuj0.apps.googleusercontent.com';
+    var API_KEY = 'AIzaSyANJosyAR55JTX73jlUV28u55R3kWgUQ80';
 
     // Array of API discovery doc URLs for APIs used by the quickstart
-    const DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
-    const SCOPES = "https://www.googleapis.com/auth/calendar";
+    var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
+    var SCOPES = "https://www.googleapis.com/auth/calendar";
 
     gapi.client.init({
         apiKey: API_KEY,
@@ -151,8 +151,8 @@ function handleSignoutClick(event) {
 // Display upcoming events on table
 
 function listUpcomingEvents() {
-    const details,count=1;
-    const request = gapi.client.calendar.events.list({
+    var details,count=1;
+    var request = gapi.client.calendar.events.list({
         'calendarId': 'primary',
         'timeMin': (new Date()).toISOString(),
         'singleEvents': true,
